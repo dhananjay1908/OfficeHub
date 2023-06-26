@@ -1,0 +1,7 @@
+GET http://localhost:5000/posts;
+Content-Type: application/json
+
+# {
+#     "title": "hello",
+#     "message": "123"
+# }
