@@ -28,7 +28,6 @@ function App() {
       <div className='h-screen w-screen'>
         <Navbar />
         <div className="flex" style={{ height: "90%" }}>
-          <LeftBar />
           <Outlet />
         </div>
       </div>

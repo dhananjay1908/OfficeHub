@@ -16,21 +16,22 @@ const ToDo = () => {
     }, [])
 
     return (
-        <div className="posts bg-[#889dd8] flex flex-col items-center basis-10/12 p-4">
-            <AddTodo
-                todo={todo}
-                setTodo={setTodo}
-                allTodos={allTodos}
-                setAllTodos={setAllTodos}
-            />
-            {
-                allTodos && allTodos.map(todo => {
-                    return (
-                        <ToDoMessage allTodos={allTodos} setAllTodos={setAllTodos} todo={todo} key={todo._id} />
-                    )
-                })
-            }
-
+        <div className="posts bg-[#889dd8] flex flex-col items-center p-4 w-full">
+            <div className='lg:w-[60%] md:w-[80%] w-[90%]'>
+                <AddTodo
+                    todo={todo}
+                    setTodo={setTodo}
+                    allTodos={allTodos}
+                    setAllTodos={setAllTodos}
+                />
+                {
+                    allTodos && allTodos.map(todo => {
+                        return (
+                            <ToDoMessage allTodos={allTodos} setAllTodos={setAllTodos} todo={todo} key={todo._id} />
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }

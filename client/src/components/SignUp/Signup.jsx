@@ -31,17 +31,17 @@ const Signup = () => {
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
                         await updateProfile(res.user, {
-                            displayName,
+                            displayName: displayName,
                             photoURL: downloadURL,
                         })
                         await setDoc(doc(db, "users", res.user.uid), {
                             uid: res.user.uid,
-                            displayName,
-                            orgName,
-                            orgCode,
-                            email,
-                            photoURL: downloadURL
+                            displayName: displayName,
+                            email: email,
+                            photoURL: downloadURL,
                         });
+
+                        await setDoc(doc(db, "userChats", res.user.uid), {});
                     });
                 });
 
@@ -81,7 +81,7 @@ const Signup = () => {
                                 onChange={(e) => { setDisplayName(e.target.value) }}
                                 type="text"
                                 value={displayName}
-                                placeholder='First Name'
+                                placeholder='Display Name'
                                 className='p-2 w-full border rounded-xl' />
                             <input
                                 onChange={(e) => { setOrgName(e.target.value) }}

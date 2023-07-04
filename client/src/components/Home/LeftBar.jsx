@@ -11,7 +11,7 @@ const LeftBar = () => {
     const navigate = useNavigate();
 
     return (
-        <div className='leftPanel hideScroll bg-blue-200 lg-basis-2/12 basis-0 opacity-95 flex-col items-center' style={{ height: "100%", overflowY: "scroll" }}>
+        <div className='leftPanel hideScroll bg-blue-200 basis-2/12 opacity-95 flex-col items-center' style={{ height: "100%", overflowY: "scroll" }}>
             <div className="flex justify-center items-center gap-x-2 pt-2" onClick={() => { navigate('/') }}>
                 <p className='font-serif text-xl'>Home</p>
                 <div className="icon w-8 h-8 text-white  rounded-full bg-blue-600 hover:bg-blue-900 flex items-center justify-center">
