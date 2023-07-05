@@ -15,7 +15,7 @@ const AddTodo = ({ todo, setTodo, allTodos, setAllTodos }) => {
     }
 
     return (
-        <div className="w-full bg-blue-800 rounded-md p-4 mb-3">
+        <div className="w-full bg-blue-800 rounded-md p-4 mb-3 z-0">
             <div className="w-[100%] h-[100%]">
                 <form autocomplete="off" className='w-[100%] h-[100%] flex items-center' onSubmit={submitHandler}>
                     <TextField

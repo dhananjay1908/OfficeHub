@@ -15,7 +15,7 @@ const ToDoMessage = ({ allTodos, setAllTodos, todo }) => {
                             setDone((prev)=>!prev);
                             toggleTodoStatus(todo._id);
                         }} />
-                    <span key={todo._id} className={`text-xl font-sans ms-2 ${done ? 'line-through' : ''}`}>
+                    <span key={todo._id} className={`text-lg pb-1 font-sans ms-2 ${done ? 'line-through' : ''}`}>
                         {todo.todo}
                     </span>
                 </div>

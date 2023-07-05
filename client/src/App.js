@@ -15,6 +15,7 @@ import ToDo from "./components/Home/Todo/ToDo";
 import { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import Chat from "./components/Home/Chats/Chat";
+import Profile from "./components/Home/Profile/Profile";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -58,6 +59,12 @@ function App() {
             <Chat />
           </RequireAuth>,
         },
+        {
+          path: "/profile",
+          element: <RequireAuth>
+            <Profile />
+          </RequireAuth>,
+        },
       ]
     },
     {
@@ -71,7 +78,7 @@ function App() {
   ]);
 
   return (
-    <div>
+    <div className="h-[100%] w-[100%]">
       <RouterProvider router={router} />
     </div>
   );

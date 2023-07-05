@@ -25,7 +25,7 @@ const RightCol = () => {
                 </div>
                 <div className="flex w-full justify-end mb-2">
                     <div className='bg-blue-600 text-white rounded-xl p-2 flex max-w-[80%] break-words'>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique consequuntur consectetur aliquid necessitatibus fugit enim iste quaerat dolorum ipsum sequi.
+                        Lorem ipsum dolor.
                     </div>
                 </div>
             </div>

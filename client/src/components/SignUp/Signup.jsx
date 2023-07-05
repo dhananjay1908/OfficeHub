@@ -73,7 +73,7 @@ const Signup = () => {
                         <img src={signup} className="h-full rounded-3xl" alt="" />
                     </div>
                     <div className="sm:w-[60%] w-full gap-4 sm:gap-0 flex lg:gap-2 flex-col items-center sm:pl-5">
-                        <h1 className='text-4xl text-blue-900 font-serif lg:mt-5 mt-2'>Login</h1>
+                        <h1 className='text-4xl text-blue-900 font-serif lg:mt-5 mt-2'>Sign Up</h1>
                         <form
                             onSubmit={signupHandler}
                             className='flex flex-col items-center mt-2 py-1 gap-2 w-full'>
@@ -83,7 +83,7 @@ const Signup = () => {
                                 value={displayName}
                                 placeholder='Display Name'
                                 className='p-2 w-full border rounded-xl' />
-                            <input
+                            {/* <input
                                 onChange={(e) => { setOrgName(e.target.value) }}
                                 type="text"
                                 value={orgName}
@@ -94,7 +94,7 @@ const Signup = () => {
                                 type="text"
                                 value={orgCode}
                                 placeholder='Organisation Code'
-                                className='p-2 w-full border rounded-xl' />
+                                className='p-2 w-full border rounded-xl' /> */}
                             <input
                                 type='file'
                                 onChange={(e) => { setFile(e.target.files[0]) }}
