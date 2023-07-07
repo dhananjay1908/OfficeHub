@@ -1,15 +1,38 @@
 import { TextField, collapseClasses } from '@mui/material'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import dp from "../../../Images/Doraemon.jpg"
 import { AuthContext } from '../../../Context/AuthContext'
 import { db } from '../../../Firebase/firebase'
-import { collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, updateDoc, where } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, query, serverTimestamp, setDoc, updateDoc, where, onSnapshot } from 'firebase/firestore'
 import FriendsList from './FriendsList'
+import { ChatsContext } from '../../../Context/ChatsContext'
 
-const LeftCol = () => {
+const FriendsDrawer = ({openDrawer, setOpenDrawer}) => {
     const { currentUser } = useContext(AuthContext);
     const [username, setUsername] = useState("")
     const [user, setUser] = useState(null)
+  const { dispatch } = useContext(ChatsContext);
+
+  useEffect(() => {
+    const getChats = () => {
+      const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
+        setChats(doc.data());
+
+        return () => {
+          unsub();
+        }
+      });
+    }
+
+    currentUser.uid && getChats()
+  }, [currentUser.uid])
+
+  const handleSetUser = async (u) => {
+    dispatch({ type: "CHANGE_USER", payload: u })
+    setOpenDrawer(prev=>!prev)
+  }
+
+  const [chats, setChats] = useState([]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -57,19 +80,8 @@ const LeftCol = () => {
         }
     }
     return (
-        <div className='w-[30%] bg-blue-100 md:flex md:flex-col py-4 hidden'>
-            <div className="flex items-center lg:px-5 md:px-3">
-                <div className="dp">
-                    <div className="w-12 h-12 rounded-full bg-black lg:me-4 me-3 overflow-hidden border-blue-500 border-2">
-                        <img src={currentUser.photoURL} alt="" />
-                    </div>
-                </div>
-                <div className='flex flex-col leading-4'>
-                    <span className='font-sans text-xl font-bold'>{currentUser.displayName}</span>
-                </div>
-            </div>
-
-            <form action="" className='my-4 w-full flex items-center lg:px-5 md:px-3' onSubmit={handleSubmit}>
+        <div className='w-full bg-gray-100 sm:flex sm:flex-col py-2 h-full'>
+            <form action="" className='my-4 w-full flex items-center px-3' onSubmit={handleSubmit}>
                 <TextField
                     fullWidth
                     placeholder='Search Friends'
@@ -77,13 +89,13 @@ const LeftCol = () => {
                     value={username}
                     InputProps={{ disableUnderline: true }}
                     onChange={(e) => { setUsername(e.target.value) }}
-                    sx={{ input: { color: 'black' }, background: "white", padding: "2px 20px", borderRadius: "20px" }}
+                    sx={{ input: { color: 'black' }, background: "#fff", padding: "5px 20px", borderRadius: "20px" }}
                 />
             </form>
 
             <div className="friendList hideScroll overflow-scroll">
 
-                {user && <div className="flex items-center hover:bg-blue-200 lg:px-5 md:px-3 py-3 hover:cursor-pointer" onClick={handleSelect}>
+                {user && <div className="flex items-center hover:bg-blue-200 px-3 py-3 hover:cursor-pointer" onClick={handleSelect}>
                     <div className="dp">
                         <div className="w-10 h-10 rounded-full bg-black me-4"></div>
                     </div>
@@ -91,12 +103,27 @@ const LeftCol = () => {
                         <span className='font-sans text-lg font-bold'>{user.displayName}</span>
                     </div>
                 </div>}
-
-                <FriendsList/>
+        
+                <>
+      {
+        Object.entries(chats)?.map(chat => (
+          <div className="flex items-center hover:bg-gray-200 lg:px-5 px-3 py-3 px hover:cursor-pointer" key={chat[0]} onClick={() => handleSetUser(chat[1].userinfo)}>
+            <div className="dp">
+              <div className="w-10 h-10 rounded-full bg-black me-4 overflow-hidden border-blue-500 border-2">
+                <img src={chat[1].userinfo.photoURL} alt="" />
+              </div>
+            </div>
+            <div className='flex flex-col justify-center'>
+              <span className='font-sans text-lg font-bold'>{chat[1].userinfo.displayName}</span>
+            </div>
+          </div>
+        ))
+      }
+    </>
             </div>
 
         </div>
     )
 }
 
-export default LeftCol
+export default FriendsDrawer
